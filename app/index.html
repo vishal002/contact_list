@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Evolent Health | Contact List</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container" ng-controller="TodoListController as todoList">
+      <div class="row">
+        <div class="col-md-12">
+          <h2><img src="https://www.evolenthealth.com/sites/all/themes/evolentcorporate/logo.png" alt="Home"> Contact List</h2>
+          <form class="form-inline" ng-submit="todoList.addAppKey()">
+            <div class="form-group">
+              <input type="text" class="form-control" ng-model="todoList.firstName"
+                       placeholder="First Name" required>
+              <input type="text" class="form-control" ng-model="todoList.lastName"
+                         placeholder="Last Name" required>
+              <input type="email" class="form-control" ng-model="todoList.emailId"
+                         placeholder="Email Id" required>
+              <input type="text" class="form-control" ng-model="todoList.phoneNumber"
+                         placeholder="Phone Number" pattern="[789][0-9]{9}" required>
+              <button type="submit" class="btn btn-primary">add</button>
+            </div>
+          </form>
+      <hr>
+      <table class="table table-hover">
+        <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Id</th>
+                <th>Phone No.</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+        </thead>
+            <tbody>
+              <tr ng-repeat="todo in todoList.todos">
+                <td>{{$index +1}}</td>
+                <td>
+                    <span ng-hide="todoList.editMode">{{todo.firstName}}</span>
+                    <input type="text" class="form-control" ng-show="todoList.editMode" ng-model="todo.firstName" required />
+                </td>
+                <td>
+                    <span ng-hide="todoList.editMode">{{todo.lastName}}</span>
+                    <input type="text" class="form-control" ng-show="todoList.editMode" ng-model="todo.lastName" required />
+                </td>
+                <td>
+                    <span ng-hide="todoList.editMode">{{todo.emailId}}</span>
+                    <input type="email" class="form-control" ng-show="todoList.editMode" ng-model="todo.emailId" required />
+                </td>
+                <td>
+                    <span ng-hide="todoList.editMode">{{todo.phoneNumber}}</span>
+                    <input type="text" class="form-control" ng-show="todoList.editMode" ng-model="todo.phoneNumber" pattern="[789][0-9]{9}" required />
+                </td>
+                <td>
+                    <span ng-hide="todoList.editMode">{{todo.is_active}}
+                      <!-- <span ng-if="todo.is_active === true ">Active</span>
+                      <span ng-if="todo.is_active === false ">Inactive</span> -->
+                    </span>
+                    <select class="form-control" ng-show="todoList.editMode" ng-model="todo.is_active">
+                      <option value="true">Active</option>
+                      <option value="false">Inactive</option>
+                    </select>
+                </td>
+                <td>
+                  <button type="submit" ng-hide="todoList.editMode" ng-click="todoList.editMode = true; todoList.editAppKey(todo)" class="btn btn-default">edit</button>
+                  <button type="submit" ng-show="todoList.editMode" ng-click="todoList.editMode = false;" class="btn btn-default">save</button>
+                  <button type="submit" ng-show="todoList.editMode" ng-click="todoList.editMode = false; todoList.cancel()" class="btn btn-default">cancel</button>
+                </td>
+              </tr>
+            </tbody>
+      </table>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/angular.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script src="app.js"></script>
+
+  </body>
+</html>
